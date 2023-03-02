@@ -7,7 +7,7 @@ const HeaderContainer = styled.div`
 
   height: 50px;
 
-  padding: 0 40px;
+  padding: 0 60px;
 `;
 
 export default HeaderContainer;
