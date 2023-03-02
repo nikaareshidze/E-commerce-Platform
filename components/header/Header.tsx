@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import Logo from "./Logo";
+import { RootState } from "@/store/store";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { setMenuIsShown } from "@/store/hiddenMenuSlice";
 
 export default function Header() {
-  const [shown, setShown] = useState(false);
+  const dispatch = useDispatch();
+  const menuIsShown = useSelector(
+    (state: RootState) => state.hiddenMenu.menuisShown
+  );
 
   return (
     <>
@@ -14,10 +22,10 @@ export default function Header() {
           <Logo />
           <HeaderNavbarContainerleft
             onMouseEnter={() => {
-              setShown(true);
+              dispatch(setMenuIsShown(true));
             }}
             onMouseLeave={() => {
-              setShown(false);
+              dispatch(setMenuIsShown(false));
             }}
           >
             <HeaderNavbarTitle>Phones</HeaderNavbarTitle>
@@ -42,16 +50,7 @@ export default function Header() {
           </UserIcon>
         </CurrentFlex>
       </HeaderContainer>
-      {shown && (
-        <HiddenContainer
-          onMouseEnter={() => {
-            setShown(true);
-          }}
-          onMouseLeave={() => {
-            setShown(!shown);
-          }}
-        />
-      )}
+      {menuIsShown && <HiddenMenu />}
     </>
   );
 }
@@ -61,8 +60,8 @@ import HeaderNavbarTitle from "@/styles/header/HeaderNavbarTitle";
 import HeaderNavbarContainer from "@/styles/header/HeaderNavbarContainer";
 import Flex from "@/styles/Flex";
 import Icon from "@/styles/header/Icon";
-import HiddenContainer from "@/styles/header/HiddenContainer";
 import styled from "styled-components";
+import HiddenMenu from "./HiddenMenu";
 
 const HeaderNavbarContainerRight = styled(HeaderNavbarContainer)`
   @media (max-width: 1360px) {
