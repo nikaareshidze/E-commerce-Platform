@@ -1,23 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface hiddenMenuSlice {
-  menuisShown: boolean;
+  smartphonesIsShown: boolean;
+  laptopsIsShown: boolean;
 }
 
 const initialState: hiddenMenuSlice = {
-  menuisShown: false,
+  smartphonesIsShown: false,
+  laptopsIsShown: false,
 };
 
 export const hiddenMenuSlice = createSlice({
   name: "hiddenMenu",
   initialState,
   reducers: {
-    setMenuIsShown: (state, action: PayloadAction<boolean>) => {
-      state.menuisShown = action.payload;
+    setSmartphonesIsShown: (state, action: PayloadAction<boolean>) => {
+      state.smartphonesIsShown = action.payload;
+    },
+    setLaptopsIsShown: (state, action: PayloadAction<boolean>) => {
+      state.laptopsIsShown = action.payload;
     },
   },
 });
 
-export const { setMenuIsShown } = hiddenMenuSlice.actions;
+export const { setSmartphonesIsShown, setLaptopsIsShown } =
+  hiddenMenuSlice.actions;
 
 export default hiddenMenuSlice.reducer;

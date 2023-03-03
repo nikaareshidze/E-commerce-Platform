@@ -4,12 +4,18 @@ import { RootState } from "@/store/store";
 
 import { useDispatch, useSelector } from "react-redux";
 
-import { setMenuIsShown } from "@/store/hiddenMenuSlice";
+import {
+  setSmartphonesIsShown,
+  setLaptopsIsShown,
+} from "@/store/hiddenMenuSlice";
 
 export default function Header() {
   const dispatch = useDispatch();
-  const menuIsShown = useSelector(
-    (state: RootState) => state.hiddenMenu.menuisShown
+  const smartphonesIsShown = useSelector(
+    (state: RootState) => state.hiddenMenu.smartphonesIsShown
+  );
+  const laptopsIsShown = useSelector(
+    (state: RootState) => state.hiddenMenu.laptopsIsShown
   );
 
   return (
@@ -21,20 +27,27 @@ export default function Header() {
         <CurrentFlex>
           <Logo />
           <HeaderNavbarContainerleft>
-            <HeaderNavbarTitle
+            <HeaderNavbarContainerLeftChildDiv
               onMouseEnter={() => {
-                dispatch(setMenuIsShown(true));
+                dispatch(setSmartphonesIsShown(true));
               }}
               onMouseLeave={() => {
-                dispatch(setMenuIsShown(false));
+                dispatch(setSmartphonesIsShown(false));
               }}
             >
-              Phones
-            </HeaderNavbarTitle>
-            <HeaderNavbarTitle>Audio</HeaderNavbarTitle>
-            <HeaderNavbarTitle>Tablet</HeaderNavbarTitle>
-            <HeaderNavbarTitle>Accessories</HeaderNavbarTitle>
-            <HeaderNavbarTitle>Offers</HeaderNavbarTitle>
+              <HeaderNavbarTitle>Phones</HeaderNavbarTitle>
+            </HeaderNavbarContainerLeftChildDiv>
+
+            <HeaderNavbarContainerLeftChildDiv
+              onMouseEnter={() => {
+                dispatch(setLaptopsIsShown(true));
+              }}
+              onMouseLeave={() => {
+                dispatch(setLaptopsIsShown(false));
+              }}
+            >
+              <HeaderNavbarTitle>Laptops </HeaderNavbarTitle>
+            </HeaderNavbarContainerLeftChildDiv>
           </HeaderNavbarContainerleft>
         </CurrentFlex>
 
@@ -52,7 +65,8 @@ export default function Header() {
           </UserIcon>
         </CurrentFlex>
       </HeaderContainer>
-      {menuIsShown && <HiddenMenu />}
+      {smartphonesIsShown && <Smartphones />}
+      {laptopsIsShown && <Laptops />}
     </>
   );
 }
@@ -60,10 +74,12 @@ export default function Header() {
 import HeaderContainer from "@/styles/header/HeaderContainer";
 import HeaderNavbarTitle from "@/styles/header/HeaderNavbarTitle";
 import HeaderNavbarContainer from "@/styles/header/HeaderNavbarContainer";
+import HeaderNavbarContainerLeftChildDiv from "@/styles/header/HeaderNavbarContainerLeftChildDiv";
 import Flex from "@/styles/Flex";
 import Icon from "@/styles/header/Icon";
 import styled from "styled-components";
-import HiddenMenu from "./HiddenMenu";
+import Smartphones from "./Smartphones";
+import Laptops from "./Laptops";
 
 const HeaderNavbarContainerRight = styled(HeaderNavbarContainer)`
   @media (max-width: 1360px) {

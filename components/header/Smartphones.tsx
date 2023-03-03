@@ -1,19 +1,56 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-export default function Smartphones({ item }: any) {
+import { setSmartphonesIsShown } from "@/store/hiddenMenuSlice";
+
+interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  discountPercentage: number;
+  rating: number;
+  stock: number;
+  brand: string;
+  category: string;
+  thumbnail: string;
+  images: string[];
+}
+
+export default function Smartphones() {
+  const dispatch = useDispatch();
+
+  const [products, setProducts] = useState<Product[]>([]);
+  const [smartphones, setSmartphones] = useState<Product[]>([]);
+
+  useEffect(() => {
+    axios.get("https://dummyjson.com/products").then((response) => {
+      setProducts(response.data.products);
+    });
+  }, []);
+
+  useEffect(() => {
+    const filtered = products.filter((item) => item.category === "smartphones");
+    setSmartphones(filtered);
+  }, [products]);
+
   return (
-    <div
-      key={item.id}
-      style={{ display: "flex", alignItems: "center", flexDirection: "column" }}
+    <HiddenContainer
+      onMouseEnter={() => {
+        dispatch(setSmartphonesIsShown(true));
+      }}
+      onMouseLeave={() => {
+        dispatch(setSmartphonesIsShown(false));
+      }}
     >
-      <ImageDiv>
-        <Image src={`${item.images[0]}`} />
-      </ImageDiv>
-      <Title>{item.title}</Title>
-    </div>
+      {smartphones.map((item) => (
+        <ProductItem item={item} />
+      ))}
+    </HiddenContainer>
   );
 }
 
-import Title from "@/styles/header/hiddenContainerComponents/Title";
-import ImageDiv from "@/styles/header/hiddenContainerComponents/ImageDiv";
-import Image from "@/styles/header/hiddenContainerComponents/Image";
+import HiddenContainer from "@/styles/header/HiddenContainer";
+import ProductItem from "./ProductItem";

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-import { setMenuIsShown } from "@/store/hiddenMenuSlice";
+import { setLaptopsIsShown } from "@/store/hiddenMenuSlice";
 
 interface Product {
   id: number;
@@ -19,11 +19,11 @@ interface Product {
   images: string[];
 }
 
-export default function HiddenMenu() {
+export default function Laptops() {
   const dispatch = useDispatch();
 
   const [products, setProducts] = useState<Product[]>([]);
-  const [smartphones, setSmartphones] = useState<Product[]>([]);
+  const [laptops, setLaptops] = useState<Product[]>([]);
 
   useEffect(() => {
     axios.get("https://dummyjson.com/products").then((response) => {
@@ -32,25 +32,25 @@ export default function HiddenMenu() {
   }, []);
 
   useEffect(() => {
-    const filtered = products.filter((item) => item.category === "smartphones");
-    setSmartphones(filtered);
+    const filtered = products.filter((item) => item.category === "laptops");
+    setLaptops(filtered);
   }, [products]);
 
   return (
     <HiddenContainer
       onMouseEnter={() => {
-        dispatch(setMenuIsShown(true));
+        dispatch(setLaptopsIsShown(true));
       }}
       onMouseLeave={() => {
-        dispatch(setMenuIsShown(false));
+        dispatch(setLaptopsIsShown(false));
       }}
     >
-      {smartphones.map((item) => (
-        <Smartphones item={item} />
+      {laptops.map((item) => (
+        <ProductItem item={item} />
       ))}
     </HiddenContainer>
   );
 }
 
 import HiddenContainer from "@/styles/header/HiddenContainer";
-import Smartphones from "./Smartphones";
+import ProductItem from "./ProductItem";
