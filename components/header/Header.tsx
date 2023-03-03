@@ -20,15 +20,17 @@ export default function Header() {
         </BurgerbarIcon>
         <CurrentFlex>
           <Logo />
-          <HeaderNavbarContainerleft
-            onMouseEnter={() => {
-              dispatch(setMenuIsShown(true));
-            }}
-            onMouseLeave={() => {
-              dispatch(setMenuIsShown(false));
-            }}
-          >
-            <HeaderNavbarTitle>Phones</HeaderNavbarTitle>
+          <HeaderNavbarContainerleft>
+            <HeaderNavbarTitle
+              onMouseEnter={() => {
+                dispatch(setMenuIsShown(true));
+              }}
+              onMouseLeave={() => {
+                dispatch(setMenuIsShown(false));
+              }}
+            >
+              Phones
+            </HeaderNavbarTitle>
             <HeaderNavbarTitle>Audio</HeaderNavbarTitle>
             <HeaderNavbarTitle>Tablet</HeaderNavbarTitle>
             <HeaderNavbarTitle>Accessories</HeaderNavbarTitle>
