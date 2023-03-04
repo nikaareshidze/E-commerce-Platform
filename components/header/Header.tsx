@@ -1,5 +1,8 @@
 import React from "react";
 import Logo from "./Logo";
+import Smartphones from "./Smartphones";
+import Laptops from "./Laptops";
+
 import { RootState } from "@/store/store";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +22,7 @@ export default function Header() {
   );
 
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <HeaderContainer>
         <BurgerbarIcon className="material-symbols-outlined">
           menu
@@ -67,7 +70,7 @@ export default function Header() {
       </HeaderContainer>
       {smartphonesIsShown && <Smartphones />}
       {laptopsIsShown && <Laptops />}
-    </>
+    </div>
   );
 }
 
@@ -78,8 +81,7 @@ import HeaderNavbarContainerLeftChildDiv from "@/styles/header/HeaderNavbarConta
 import Flex from "@/styles/Flex";
 import Icon from "@/styles/header/Icon";
 import styled from "styled-components";
-import Smartphones from "./Smartphones";
-import Laptops from "./Laptops";
+import BurgerbarIcon from "@/styles/header/BurgerbarIcon";
 
 const HeaderNavbarContainerRight = styled(HeaderNavbarContainer)`
   @media (max-width: 1360px) {
@@ -95,12 +97,6 @@ const HeaderNavbarContainerleft = styled(HeaderNavbarContainer)`
 const UserIcon = styled(Icon)`
   @media (max-width: 1024px) {
     display: none;
-  }
-`;
-const BurgerbarIcon = styled(Icon)`
-  display: none;
-  @media (max-width: 1024px) {
-    display: inline;
   }
 `;
 const CurrentFlex = styled(Flex)`

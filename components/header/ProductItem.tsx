@@ -4,7 +4,12 @@ export default function ProductItem({ item }: any) {
   return (
     <div
       key={item.id}
-      style={{ display: "flex", alignItems: "center", flexDirection: "column" }}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        cursor: "pointer",
+      }}
     >
       <ImageDiv>
         <Image src={`${item.images[0]}`} />

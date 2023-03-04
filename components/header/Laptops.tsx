@@ -22,19 +22,16 @@ interface Product {
 export default function Laptops() {
   const dispatch = useDispatch();
 
-  const [products, setProducts] = useState<Product[]>([]);
   const [laptops, setLaptops] = useState<Product[]>([]);
 
   useEffect(() => {
     axios.get("https://dummyjson.com/products").then((response) => {
-      setProducts(response.data.products);
+      const laptops = response.data.products.filter(
+        (item: any) => item.category === "laptops"
+      );
+      setLaptops(laptops);
     });
   }, []);
-
-  useEffect(() => {
-    const filtered = products.filter((item) => item.category === "laptops");
-    setLaptops(filtered);
-  }, [products]);
 
   return (
     <HiddenContainer
@@ -46,7 +43,7 @@ export default function Laptops() {
       }}
     >
       {laptops.map((item) => (
-        <ProductItem item={item} />
+        <ProductItem item={item} key={item.id} />
       ))}
     </HiddenContainer>
   );

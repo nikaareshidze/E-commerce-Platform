@@ -8,6 +8,10 @@ const HeaderContainer = styled.div`
   height: 50px;
 
   padding: 0 60px;
+
+  @media (max-width: 1024px) {
+    padding: 0 10px;
+  }
 `;
 
 export default HeaderContainer;

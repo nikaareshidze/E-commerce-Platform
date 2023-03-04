@@ -8,6 +8,8 @@ const HiddenContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+
+  position: absolute;
 `;
 
 export default HiddenContainer;
