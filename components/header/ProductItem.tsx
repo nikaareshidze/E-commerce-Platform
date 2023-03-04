@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function ProductItem({ item }: any) {
   return (
@@ -14,7 +15,7 @@ export default function ProductItem({ item }: any) {
       <ImageDiv>
         <Image src={`${item.images[0]}`} />
       </ImageDiv>
-      <Title>{item.title}</Title>
+      <Link href={`/products/${item.title}`}>{item.title}</Link>
     </div>
   );
 }
