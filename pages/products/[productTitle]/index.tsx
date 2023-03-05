@@ -1,18 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
+import Header from "@/components/header/Header";
+
 export default function index({ productDetailData }: any) {
+  const [stockIsShown, setStockIsShown] = useState(false);
+
   return (
-    <div>
-      <h1>{productDetailData.title}</h1>
-      <h1>{productDetailData.description}</h1>
-      {/* <img src={`${productDetailData.images[0]}`} /> */}
-      <h1>{productDetailData.price}</h1>
-      <h1>{productDetailData.brand}</h1>
-      <h1>{productDetailData.discountPercentage}</h1>
-      <h1>{productDetailData.stock}</h1>
-      <h1>{productDetailData.rating}</h1>
-    </div>
+    <>
+      <Header />
+      <div style={{ display: "flex", marginTop: "24px" }}>
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img src={`${productDetailData.images[0]}`} />
+        </div>
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "8px",
+          }}
+        >
+          <ProductName>{productDetailData.title}</ProductName>
+          <ProductDescription>
+            {productDetailData.description}
+          </ProductDescription>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <ProductPrice>{`$${productDetailData.price}`}</ProductPrice>
+            <ProductDiscount>
+              {`${productDetailData.discountPercentage}%`}
+            </ProductDiscount>
+          </div>
+          <>
+            <ProductAvailability
+              onClick={() => {
+                setStockIsShown(true);
+              }}
+            >
+              Check availability
+            </ProductAvailability>
+            {stockIsShown && (
+              <ProductDescription>{`${productDetailData.stock} items are left`}</ProductDescription>
+            )}
+          </>
+        </div>
+      </div>
+    </>
   );
 }
 
@@ -41,3 +83,9 @@ export async function getStaticProps(context: any) {
     },
   };
 }
+
+import ProductName from "@/styles/products-details/ProductName";
+import ProductDescription from "@/styles/products-details/ProductDescription";
+import ProductPrice from "@/styles/products-details/ProductPrice";
+import ProductDiscount from "@/styles/products-details/ProductDiscount";
+import ProductAvailability from "@/styles/products-details/ProductAvailability";
